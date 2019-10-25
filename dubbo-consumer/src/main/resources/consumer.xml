@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+<!--    配置dubbo-->
+    <dubbo:application name="dubbo-consumer"/>
+    
+<!--    指定注册中心（配置zookeeper）-->
+    <dubbo:registry address="zookeeper://10.224.72.63:2181"/>
+    
+<!--    订阅服务-->
+    <dubbo:reference id="userService" interface="_51cto.service.UserService"/>
+
+<!--    创建应用bean-->
+    <bean class="com._51cto.controller.UserController">
+        <property name="userService" ref="userService"/><!-- 在UserController中创建私有属性UserService的setter方法 -->
+    </bean>
+</beans>
